@@ -12,6 +12,25 @@ namespace Infrastructure.Persistence.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
+                name: "establishments",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    phoneNumber = table.Column<string>(type: "varchar(15)", maxLength: 15, nullable: false),
+                    status = table.Column<int>(type: "int", nullable: false),
+                    name = table.Column<string>(type: "varchar(20)", maxLength: 20, nullable: false),
+                    description = table.Column<string>(type: "varchar(50)", maxLength: 50, nullable: false),
+                    addressNeighborhood = table.Column<string>(type: "varchar(50)", maxLength: 50, nullable: false),
+                    addressStreet = table.Column<string>(type: "varchar(50)", maxLength: 50, nullable: false),
+                    addressNumbers = table.Column<string>(type: "varchar(10)", maxLength: 10, nullable: false),
+                    addressZipcode = table.Column<string>(type: "varchar(15)", maxLength: 15, nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_establishments", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "users",
                 columns: table => new
                 {
@@ -55,6 +74,9 @@ namespace Infrastructure.Persistence.Migrations
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropTable(
+                name: "establishments");
+
             migrationBuilder.DropTable(
                 name: "userRoles");
 

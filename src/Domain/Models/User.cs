@@ -4,7 +4,14 @@ namespace EasyBooking.Domain;
 
 public class User: BaseEntity
 {
-    private void Specify(IValidator<User> specifications)
+    public bool Active { get; private set; } 
+    public string Name { get; private set; } = null!;
+    public string Document { get; private set; } = null!;
+    public string Email { get; private set; } = null!;
+    public string Password { get; private set; } = null!;
+    public List<UserRole> Roles { get; private set; } = null!;
+
+        private void Specify(IValidator<User> specifications)
     {
         var (errors, valid) = specifications.Validate(this);
 
@@ -26,11 +33,4 @@ public class User: BaseEntity
         instance.Specify(specifications);
         return instance;
     }
-
-    public bool Active { get; private set; } 
-    public string Name { get; private set; } = null!;
-    public string Document { get; private set; } = null!;
-    public string Email { get; private set; } = null!;
-    public string Password { get; private set; } = null!;
-    public List<UserRole> Roles { get; private set; } = null!;
 }

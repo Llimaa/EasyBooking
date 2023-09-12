@@ -1,5 +1,4 @@
 using EasyBooking.Domain;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 namespace EasyBooking.Infrastructure;

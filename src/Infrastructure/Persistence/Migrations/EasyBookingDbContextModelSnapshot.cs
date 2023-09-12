@@ -22,6 +22,39 @@ namespace Infrastructure.Persistence.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
+            modelBuilder.Entity("EasyBooking.Domain.Establishment", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("varchar(50)")
+                        .HasColumnName("description");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("varchar(20)")
+                        .HasColumnName("name");
+
+                    b.Property<string>("PhoneNumber")
+                        .IsRequired()
+                        .HasMaxLength(15)
+                        .HasColumnType("varchar(15)")
+                        .HasColumnName("phoneNumber");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("int")
+                        .HasColumnName("status");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("establishments", (string)null);
+                });
+
             modelBuilder.Entity("EasyBooking.Domain.User", b =>
                 {
                     b.Property<Guid>("Id")
@@ -84,6 +117,49 @@ namespace Infrastructure.Persistence.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("userRoles", (string)null);
+                });
+
+            modelBuilder.Entity("EasyBooking.Domain.Establishment", b =>
+                {
+                    b.OwnsOne("EasyBooking.Domain.Address", "Address", b1 =>
+                        {
+                            b1.Property<Guid>("EstablishmentId")
+                                .HasColumnType("uniqueidentifier");
+
+                            b1.Property<string>("Neighborhood")
+                                .IsRequired()
+                                .HasMaxLength(50)
+                                .HasColumnType("varchar(50)")
+                                .HasColumnName("addressNeighborhood");
+
+                            b1.Property<string>("Number")
+                                .IsRequired()
+                                .HasMaxLength(10)
+                                .HasColumnType("varchar(10)")
+                                .HasColumnName("addressNumbers");
+
+                            b1.Property<string>("Street")
+                                .IsRequired()
+                                .HasMaxLength(50)
+                                .HasColumnType("varchar(50)")
+                                .HasColumnName("addressStreet");
+
+                            b1.Property<string>("Zipcode")
+                                .IsRequired()
+                                .HasMaxLength(15)
+                                .HasColumnType("varchar(15)")
+                                .HasColumnName("addressZipcode");
+
+                            b1.HasKey("EstablishmentId");
+
+                            b1.ToTable("establishments");
+
+                            b1.WithOwner()
+                                .HasForeignKey("EstablishmentId");
+                        });
+
+                    b.Navigation("Address")
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("EasyBooking.Domain.UserRole", b =>

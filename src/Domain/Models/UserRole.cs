@@ -4,18 +4,10 @@ namespace EasyBooking.Domain;
 
 public class UserRole : BaseEntity
 {
-    private UserRole() { }
-    private readonly IValidator<UserRole> specifications = null!;
-
-    public UserRole(IValidator<UserRole> specifications)
-    {
-        this.specifications = specifications;
-    }
-
     public string Value { get; private set; } = null!;
     public Guid UserId { get; private set; }
 
-    private void Specify() 
+    private void Specify(IValidator<UserRole> specifications) 
     {
         var (errors, valid) = specifications.Validate(this);
 
@@ -25,12 +17,12 @@ public class UserRole : BaseEntity
 
     public static UserRole Raise (string value, Guid userId, IValidator<UserRole> validator) 
     {
-        var instance = new UserRole(validator) 
+        var instance = new UserRole() 
         {
             Value = value,
             UserId = userId
         };
-        instance.Specify();
+        instance.Specify(validator);
         return instance;
     }
 }
