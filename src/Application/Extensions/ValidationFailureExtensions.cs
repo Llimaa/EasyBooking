@@ -1,6 +1,6 @@
 using FluentValidation.Results;
 
-namespace EasyBooking.Domain;
+namespace EasyBooking.Appplication;
 
 public static class ValidationFailureExtensions 
 {

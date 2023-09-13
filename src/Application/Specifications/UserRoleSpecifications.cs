@@ -1,8 +1,8 @@
 using FluentValidation;
 
-namespace EasyBooking.Domain;
+namespace EasyBooking.Appplication;
 
-public class UserRoleSpecifications: AbstractValidator<UserRole>
+public class UserRoleSpecifications: AbstractValidator<CreateUserRoleRequest>
 {
     public UserRoleSpecifications()
     {

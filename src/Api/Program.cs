@@ -100,10 +100,15 @@ builder.Services.AddScoped<IEstablishmentRepository, EstablishmentRepository>();
 builder.Services.AddScoped<IGetEstablishmentQuery, GetEstablishmentQuery>();
 builder.Services.AddScoped<ICreateEstablishment, CreateEstablishment>();
 
+builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
+builder.Services.AddScoped<IGetCategoryQuery, GetCategoryQuery>();
+builder.Services.AddScoped<ICreateCategory, CreateCategory>();
+
 builder.Services.AddScoped<IErrorBagService, ErrorBagService> ();
-builder.Services.AddTransient<IValidator<UserRole>, UserRoleSpecifications>();
-builder.Services.AddTransient<IValidator<User>, UserSpecifications>();
-builder.Services.AddTransient<IValidator<Establishment>, EstablishmentSpecifications>();
+builder.Services.AddTransient<IValidator<CreateUserRoleRequest>, UserRoleSpecifications>();
+builder.Services.AddTransient<IValidator<CreateUserRequest>, UserSpecifications>();
+builder.Services.AddTransient<IValidator<CreateEstablishmentRequest>, EstablishmentSpecifications>();
+builder.Services.AddTransient<IValidator<CreateCategoryRequest>, CategorySpecifications>();
 
 var app = builder.Build();
 

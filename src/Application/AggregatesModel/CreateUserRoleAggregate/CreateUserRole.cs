@@ -7,10 +7,10 @@ namespace EasyBooking.Appplication;
 public class CreateUserRole : ICreateUserRole
 {
     private readonly IUserRoleRepository repository;
-    private readonly IValidator<UserRole> validator;
+    private readonly IValidator<CreateUserRoleRequest> validator;
     private readonly IErrorBagService errorBagService;
 
-    public CreateUserRole(IUserRoleRepository repository, IValidator<UserRole> validator, IErrorBagService errorBagService)
+    public CreateUserRole(IUserRoleRepository repository, IValidator<CreateUserRoleRequest> validator, IErrorBagService errorBagService)
     {
         this.repository = repository;
         this.validator = validator;
@@ -19,12 +19,12 @@ public class CreateUserRole : ICreateUserRole
 
     public async Task<CreateUserRoleResponse?> CreateAsync(CreateUserRoleRequest request, CancellationToken cancellationToken)
     {
-        var userRole = UserRole.Raise(request.Value, request.UserId, validator);
+        var userRole = UserRole.Raise(request.Value, request.UserId);
 
+        var (errors, valid) = request.Validate(validator);
 
-        if(!userRole.Valid) 
-        {
-            errorBagService.HandlerError(userRole.Errors);
+        if(!valid){
+            errorBagService.HandlerError(errors);
             return default;
         }
 

@@ -7,10 +7,10 @@ namespace EasyBooking.Appplication;
 public class CreateEstablishment : ICreateEstablishment
 {
     private readonly IEstablishmentRepository establishmentRepository;
-    private readonly IValidator<Establishment> validator;
+    private readonly IValidator<CreateEstablishmentRequest> validator;
     private readonly IErrorBagService errorBagService;
 
-    public CreateEstablishment(IValidator<Establishment> validator, IErrorBagService errorBagService, IEstablishmentRepository establishmentRepository)
+    public CreateEstablishment(IValidator<CreateEstablishmentRequest> validator, IErrorBagService errorBagService, IEstablishmentRepository establishmentRepository)
     {
         this.validator = validator;
         this.errorBagService = errorBagService;
@@ -19,15 +19,15 @@ public class CreateEstablishment : ICreateEstablishment
 
     public async Task<CreateEstablishmentResponse?> CreateAsync(CreateEstablishmentRequest request, CancellationToken cancellationToken)
     {
-        var address = new Address(request.Neighborhood, request.Street, request.Number, request.Zipcode);
+        var (errors, valid) = request.Validate(validator);
 
-        var establishment = Establishment.Raise(request.PhoneNumber, request.Name, request.Description, address, validator);
-
-        if(!establishment.Valid) 
-        {
-            errorBagService.HandlerError(establishment.Errors);
+        if(!valid){
+            errorBagService.HandlerError(errors);
             return default;
         }
+
+        var address = new Address(request.Neighborhood, request.Street, request.Number, request.Zipcode);
+        var establishment = Establishment.Raise(request.PhoneNumber, request.Name, request.Description, address);
 
         var exist = await establishmentRepository.ExistThisEstablishmentAsync(request.Name, cancellationToken);
 

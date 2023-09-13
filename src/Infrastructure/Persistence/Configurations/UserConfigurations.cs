@@ -18,8 +18,6 @@ public class UserConfigurations: IEntityTypeConfiguration<User>
         builder.Property(e => e.Email).HasMaxLength(20).HasColumnType("varchar(20)").HasColumnName("email").IsRequired();
         builder.Property(e => e.Password).HasMaxLength(100).HasColumnType("varchar(100)").HasColumnName("password").IsRequired();
         builder.Property(e => e.Active).HasColumnType("bit").HasColumnName("active").IsRequired();
-        builder.Ignore(_ => _.Errors);
-        builder.Ignore(_ => _.Valid);
         
         builder
             .HasMany(s => s.Roles)

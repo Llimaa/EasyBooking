@@ -1,4 +1,3 @@
-using System.Linq.Expressions;
 using EasyBooking.Domain;
 using EasyBooking.Infrastructure;
 using FluentValidation;
@@ -10,11 +9,11 @@ public class CreateUser : ICreateUser
     private readonly IAuthService authService;
     private readonly IUserRepository userRepository;
     private readonly ICreateUserRole createUserRole;
-    private readonly IValidator<User> validator;
+    private readonly IValidator<CreateUserRequest> validator;
     private readonly IErrorBagService errorBagService;
     
 
-    public CreateUser(IAuthService authService, IUserRepository userRepository, ICreateUserRole createUserRole, IValidator<User> validator, IErrorBagService errorBagService)
+    public CreateUser(IAuthService authService, IUserRepository userRepository, ICreateUserRole createUserRole, IValidator<CreateUserRequest> validator, IErrorBagService errorBagService)
     {
         this.authService = authService;
         this.userRepository = userRepository;
@@ -25,14 +24,15 @@ public class CreateUser : ICreateUser
 
     public async Task<CreateUserResponse?> CreateAsync(CreateUserRequest request, CancellationToken cancellationToken)
     {
-        var hashPassword = authService.ComputeSha256Hash(request.Password);
-        var user = User.Raise(request.Name, request.Document, request.Email, hashPassword, validator);
-        
-        if(!user.Valid) 
-        {
-            errorBagService.HandlerError(user.Errors);
+        var (errors, valid) = request.Validate(validator);
+
+        if(!valid){
+            errorBagService.HandlerError(errors);
             return default;
         }
+
+        var hashPassword = authService.ComputeSha256Hash(request.Password);
+        var user = User.Raise(request.Name, request.Document, request.Email, hashPassword);
 
         var exist = await userRepository.ExistThisUserAsync(request.Email, request.Document, cancellationToken);
 

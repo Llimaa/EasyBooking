@@ -1,5 +1,3 @@
-using FluentValidation;
-
 namespace EasyBooking.Domain;
 
 public class User: BaseEntity
@@ -11,15 +9,7 @@ public class User: BaseEntity
     public string Password { get; private set; } = null!;
     public List<UserRole> Roles { get; private set; } = null!;
 
-        private void Specify(IValidator<User> specifications)
-    {
-        var (errors, valid) = specifications.Validate(this);
-
-        Errors = errors.AsDefaultFormat();
-        Valid = valid;
-    }
-
-    public static User Raise(string name, string document, string email, string hashPassword, IValidator<User> specifications)
+    public static User Raise(string name, string document, string email, string hashPassword)
     {
         var instance = new User()
         {
@@ -29,8 +19,6 @@ public class User: BaseEntity
             Email = email,
             Password = hashPassword,
         };
-
-        instance.Specify(specifications);
         return instance;
     }
 }

@@ -44,8 +44,5 @@ public class EstablishmentConfigurations: IEntityTypeConfiguration<Establishment
             .HasMaxLength(15)
             .HasColumnType("varchar(15)")
             .IsRequired(true);
-        
-        builder.Ignore(_ => _.Errors);
-        builder.Ignore(_ => _.Valid);
     }
 }

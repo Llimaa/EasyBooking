@@ -1,11 +1,8 @@
-using System.Data;
-using System.Reflection;
-using EasyBooking.Domain;
 using FluentValidation;
 
 namespace EasyBooking.Appplication;
 
-public class UserSpecifications: AbstractValidator<User> 
+public class UserSpecifications: AbstractValidator<CreateUserRequest> 
 {
     public UserSpecifications()
     {

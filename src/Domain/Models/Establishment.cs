@@ -1,5 +1,3 @@
-using FluentValidation;
-
 namespace EasyBooking.Domain;
 
 public class Establishment : BaseEntity
@@ -10,14 +8,9 @@ public class Establishment : BaseEntity
     public string Description { get; private set; }  = null!;
     public Address Address { get; private set; }  = null!;
 
-    private void Specify(IValidator<Establishment> specification) 
-    {
-        var (errors, valid) = specification.Validate(this);
-        Errors = errors.AsDefaultFormat();
-        Valid = valid;
-    }
+    public List<Category> Categories { get; private set; } = null!;
 
-    public static Establishment Raise(string phoneNumber, string name, string description, Address address, IValidator<Establishment> validator)
+    public static Establishment Raise(string phoneNumber, string name, string description, Address address)
     {
         var instance = new Establishment() 
         {
@@ -27,9 +20,6 @@ public class Establishment : BaseEntity
             Description = description,
             Address = address
         };
-
-        instance.Specify(validator);
         return instance;
     }
-
 }
