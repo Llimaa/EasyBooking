@@ -7,13 +7,13 @@ namespace Api.Controllers;
 [ApiController]
 [Route("v{version:apiVersion}/categories/")]
 [ApiVersion("1")]
-public class CategoryController : ControllerBase
+public class GameSpaceController : ControllerBase
 {
-    private readonly ICreateCategory createCategory;
+    private readonly IGameSpaceCategory createCategory;
     private readonly IGetCategoryQuery getCategoryQuery;
 
 
-    public CategoryController(ICreateCategory createCategory, IGetCategoryQuery getCategoryQuery)
+    public GameSpaceController(IGameSpaceCategory createCategory, IGetCategoryQuery getCategoryQuery)
     {
         this.createCategory = createCategory;
         this.getCategoryQuery = getCategoryQuery;
@@ -21,7 +21,7 @@ public class CategoryController : ControllerBase
 
     [HttpPost("")]
     [Authorize(Roles = "admin")]
-    public async Task<IActionResult> CreateRole([FromBody] CreateCategoryRequest request, CancellationToken cancellationToken) 
+    public async Task<IActionResult> CreateRole([FromBody] CreateGameSpaceRequest request, CancellationToken cancellationToken) 
     {
         var result = await createCategory.CreateAsync(request, cancellationToken);
         return CreatedAtAction(nameof(GetById), new { id = result?.Id }, result);

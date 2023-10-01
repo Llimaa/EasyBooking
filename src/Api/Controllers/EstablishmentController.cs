@@ -40,4 +40,16 @@ public class EstablishmentController : ControllerBase
         
         return Ok(result);
     }
+
+    [HttpGet("")]
+    [Authorize(Roles = "user")]
+    public async Task<IActionResult> GetAll(CancellationToken cancellationToken) 
+    {
+        var result = await establishmentQuery.GetAllAsync(cancellationToken);
+
+        if(result is null)
+            return NotFound();
+        
+        return Ok(result);
+    }
 }

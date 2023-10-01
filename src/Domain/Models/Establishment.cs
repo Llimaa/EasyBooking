@@ -8,7 +8,7 @@ public class Establishment : BaseEntity
     public string Description { get; private set; }  = null!;
     public Address Address { get; private set; }  = null!;
 
-    public List<Category> Categories { get; private set; } = null!;
+    public List<GameSpace> GameSpaces { get; private set; } = null!;
 
     public static Establishment Raise(string phoneNumber, string name, string description, Address address)
     {

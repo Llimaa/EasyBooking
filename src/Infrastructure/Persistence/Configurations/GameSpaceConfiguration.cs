@@ -4,9 +4,9 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace EasyBooking.Infrastructure;
 
-public class CategoryConfiguration : IEntityTypeConfiguration<Category>
+public class GameSpaceConfiguration : IEntityTypeConfiguration<GameSpace>
 {
-    public void Configure(EntityTypeBuilder<Category> builder)
+    public void Configure(EntityTypeBuilder<GameSpace> builder)
     {
         builder
             .ToTable("categories")
@@ -18,7 +18,7 @@ public class CategoryConfiguration : IEntityTypeConfiguration<Category>
         
         builder
             .HasOne<Establishment>()
-            .WithMany(_ => _.Categories)
+            .WithMany(_ => _.GameSpaces)
             .OnDelete(DeleteBehavior.Cascade);
     }
 }

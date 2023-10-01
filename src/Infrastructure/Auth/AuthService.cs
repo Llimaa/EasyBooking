@@ -16,7 +16,7 @@ public class AuthService : IAuthService
             _configuration = configuration;
         }
 
-        public Token GenerateJwtToken(string email, List<UserRole> roles)
+        public Token GenerateJwtToken(string email, Guid id, List<UserRole> roles)
         {
             var issuer = _configuration["Jwt:Issuer"];
             var audience = _configuration["Jwt:Audience"];
@@ -26,9 +26,11 @@ public class AuthService : IAuthService
             var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
             var claims = new List<Claim>();
             claims.Add(new Claim("userName", email));
+            claims.Add(new Claim("id", id.ToString()));
             foreach (var item in roles)
             {
                 claims.Add(new Claim(ClaimTypes.Role, item.Value));
+                claims.Add(new Claim("roles", item.Value));
             }
 
             var token = new JwtSecurityToken(

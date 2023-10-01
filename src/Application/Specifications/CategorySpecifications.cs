@@ -2,7 +2,7 @@ using FluentValidation;
 
 namespace EasyBooking.Appplication;
 
-public class CategorySpecifications: AbstractValidator<CreateCategoryRequest>
+public class CategorySpecifications: AbstractValidator<CreateGameSpaceRequest>
 {
     public CategorySpecifications()
     {

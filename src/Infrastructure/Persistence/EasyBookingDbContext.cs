@@ -10,7 +10,8 @@ public partial class EasyBookingDbContext: DbContext
     public DbSet<User> Users { get; set; } = null!;
     public DbSet<UserRole> UserRoles { get; set; }= null!;
     public DbSet<Establishment> Establishments { get; set; }= null!;
-    public DbSet<Category> Categories { get; set; }= null!;
+    public DbSet<GameSpace> GameSpaces { get; set; }= null!;
+    public DbSet<WeekDay> WeekDays { get; set; }= null!;
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -18,6 +19,7 @@ public partial class EasyBookingDbContext: DbContext
         modelBuilder.ApplyConfiguration(new EstablishmentConfigurations());
         modelBuilder.ApplyConfiguration(new UserConfigurations());
         modelBuilder.ApplyConfiguration(new UserRoleConfiguration());
-        modelBuilder.ApplyConfiguration(new CategoryConfiguration());
+        modelBuilder.ApplyConfiguration(new GameSpaceConfiguration());
+        modelBuilder.ApplyConfiguration(new WeekDayConfiguration());
     }
 }

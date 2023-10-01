@@ -23,4 +23,7 @@ public class EstablishmentRepository : IEstablishmentRepository
 
     public async Task<Establishment?> GetByIdAsync(Guid id, CancellationToken cancellationToken) =>
         await context.Establishments.FirstOrDefaultAsync(_ => _.Id == id, cancellationToken);
+
+    public async Task<IEnumerable<Establishment>?> GetAllAsync(CancellationToken cancellationToken) =>
+        await context.Establishments.ToListAsync(cancellationToken);
 }

@@ -1,6 +1,6 @@
 namespace EasyBooking.Domain;
 
-public enum CategoryStatus 
+public enum GameSpaceStatus 
 {
     Desactive,
     Active

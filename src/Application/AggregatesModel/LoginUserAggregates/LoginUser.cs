@@ -23,7 +23,7 @@ public class LoginUser : ILoginUser
         if(user is null)
             return null;
             
-        var token = authService.GenerateJwtToken(user.Email, user.Roles);
+        var token = authService.GenerateJwtToken(user.Email, user.Id, user.Roles);
         var loginResponse = new LoginUserResponse(token.Value, token.ExpireAt);
         return loginResponse;
     }
