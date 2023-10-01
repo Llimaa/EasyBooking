@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace Api.Controllers;
 
 [ApiController]
-[Route("v{version:apiVersion}/categories/")]
+[Route("v{version:apiVersion}/gameSpaces/")]
 [ApiVersion("1")]
 public class GameSpaceController : ControllerBase
 {
@@ -21,7 +21,7 @@ public class GameSpaceController : ControllerBase
     }
 
     [HttpPost("")]
-    [Authorize(Roles = "admin")]
+    [Authorize(Roles = "admin,user")]
     public async Task<IActionResult> CreateRole([FromBody] CreateGameSpaceRequest request, CancellationToken cancellationToken) 
     {
         var result = await createGameSpace.CreateAsync(request, cancellationToken);

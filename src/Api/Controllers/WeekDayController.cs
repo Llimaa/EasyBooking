@@ -24,7 +24,7 @@ public class WeekDayController : ControllerBase
     }
 
     [HttpPost("")]
-    [Authorize(Roles = "admin")]
+    [Authorize(Roles = "admin,user")]
     public async Task<IActionResult> CreateWeekDay([FromBody] CreateWeekDayRequest request, CancellationToken cancellationToken) 
     {
         var result = await createWeekDay.CreateAsync(request, cancellationToken);
@@ -32,7 +32,7 @@ public class WeekDayController : ControllerBase
     }
 
     [HttpPatch("finish/{id:Guid}")]
-    [Authorize(Roles = "admin")]
+    [Authorize(Roles = "admin,user")]
     public async Task<IActionResult> CreateWeekDay(Guid id, CancellationToken cancellationToken) 
     {
         await finishWeekDay.FinishAsync(id, cancellationToken);
@@ -40,7 +40,7 @@ public class WeekDayController : ControllerBase
     }
 
     [HttpPatch("cancell/{id:Guid}")]
-    [Authorize(Roles = "admin")]
+    [Authorize(Roles = "admin,user")]
     public async Task<IActionResult> CancellWeekDay(Guid id, CancellationToken cancellationToken) 
     {
         await cancellWeekDay.CancellAsync(id, cancellationToken);

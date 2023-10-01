@@ -22,7 +22,7 @@ public class EstablishmentController : ControllerBase
     }
 
     [HttpPost]
-    [Authorize(Roles = "admin")]
+    [Authorize(Roles = "admin,user")]
     public async Task<IActionResult> Post([FromBody] CreateEstablishmentRequest request, CancellationToken cancellationToken) 
     {
         var result = await createEstablishment.CreateAsync(request, cancellationToken);
