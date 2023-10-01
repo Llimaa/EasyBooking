@@ -3,11 +3,11 @@ using Microsoft.EntityFrameworkCore;
 
 namespace EasyBooking.Infrastructure;
 
-public class GameSpacesRepository : IGameSpaceRepository
+public class GameSpaceRepository : IGameSpaceRepository
 {
     private readonly EasyBookingDbContext context;
 
-    public GameSpacesRepository(EasyBookingDbContext context)
+    public GameSpaceRepository(EasyBookingDbContext context)
     {
         this.context = context;
     }

@@ -2,9 +2,9 @@ using EasyBooking.Domain;
 
 namespace EasyBooking.Appplication;
 
-public record GetCategoryResponse(
+public record GetGameSpaceResponse(
     Guid Id,
     string Name,
-    CategoryStatus Status,
+    GameSpaceStatus Status,
     Guid EstablishmentId
 );

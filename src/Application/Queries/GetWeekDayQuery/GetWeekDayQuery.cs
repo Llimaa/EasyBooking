@@ -13,7 +13,7 @@ public class GetWeekDayQuery : IGetWeekDayQuery
 
     public async Task<IEnumerable<GetWeekDayResponse>?> GetByCategoryIdIdAsync(Guid id, CancellationToken cancellationToken)
     {
-        var result = await repository.GetByCategoryIdAsync(id, cancellationToken);
+        var result = await repository.GetByGameSpaceIdAsync(id, cancellationToken);
 
         if(result is null)
             return default;

@@ -112,9 +112,9 @@ builder.Services.AddScoped<IEstablishmentRepository, EstablishmentRepository>();
 builder.Services.AddScoped<IGetEstablishmentQuery, GetEstablishmentQuery>();
 builder.Services.AddScoped<ICreateEstablishment, CreateEstablishment>();
 
-builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
-builder.Services.AddScoped<IGetCategoryQuery, GetCategoryQuery>();
-builder.Services.AddScoped<IGameSpaceCategory, CreateCategory>();
+builder.Services.AddScoped<IGameSpaceRepository, GameSpaceRepository>();
+builder.Services.AddScoped<IGetGameSpaceQuery, GetGameSpaceQuery>();
+builder.Services.AddScoped<ICreateGameSpace, CreateGameSpace>();
 
 builder.Services.AddScoped<IWeekDayRepository, WeekDayRepository>();
 builder.Services.AddScoped<ICreateWeekDay, CreateWeekDay>();
@@ -126,7 +126,7 @@ builder.Services.AddScoped<IErrorBagService, ErrorBagService> ();
 builder.Services.AddTransient<IValidator<CreateUserRoleRequest>, UserRoleSpecifications>();
 builder.Services.AddTransient<IValidator<CreateUserRequest>, UserSpecifications>();
 builder.Services.AddTransient<IValidator<CreateEstablishmentRequest>, EstablishmentSpecifications>();
-builder.Services.AddTransient<IValidator<CreateGameSpaceRequest>, CategorySpecifications>();
+builder.Services.AddTransient<IValidator<CreateGameSpaceRequest>, GameSpaceSpecifications>();
 builder.Services.AddTransient<IValidator<CreateWeekDayRequest>, WeekDaySpecifications>();
 builder.Services.AddTransient<IValidator<Guid>, GuidSpecifications>();
 

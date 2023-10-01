@@ -2,9 +2,9 @@ using FluentValidation;
 
 namespace EasyBooking.Appplication;
 
-public class CategorySpecifications: AbstractValidator<CreateGameSpaceRequest>
+public class GameSpaceSpecifications: AbstractValidator<CreateGameSpaceRequest>
 {
-    public CategorySpecifications()
+    public GameSpaceSpecifications()
     {
         RuleFor(_ => _.Name)
             .NotEmpty()
