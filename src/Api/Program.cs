@@ -11,7 +11,19 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 
+var SpecificOrigins = "_specificOrigins";
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy(SpecificOrigins,
+                        policy =>
+                        {
+                            policy.WithOrigins("http://localhost:4200")
+                                                .AllowAnyHeader()
+                                                .AllowAnyMethod();
+                        });
+});
 
 builder.Services.AddControllers(options => 
 {
@@ -102,21 +114,30 @@ builder.Services.AddScoped<ICreateEstablishment, CreateEstablishment>();
 
 builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
 builder.Services.AddScoped<IGetCategoryQuery, GetCategoryQuery>();
-builder.Services.AddScoped<ICreateCategory, CreateCategory>();
+builder.Services.AddScoped<IGameSpaceCategory, CreateCategory>();
+
+builder.Services.AddScoped<IWeekDayRepository, WeekDayRepository>();
+builder.Services.AddScoped<ICreateWeekDay, CreateWeekDay>();
+builder.Services.AddScoped<IGetWeekDayQuery, GetWeekDayQuery>();
+builder.Services.AddScoped<IFinishWeekDay, FinishWeekDay>();
+builder.Services.AddScoped<ICancellWeekDay, CancellWeekDay>();
 
 builder.Services.AddScoped<IErrorBagService, ErrorBagService> ();
 builder.Services.AddTransient<IValidator<CreateUserRoleRequest>, UserRoleSpecifications>();
 builder.Services.AddTransient<IValidator<CreateUserRequest>, UserSpecifications>();
 builder.Services.AddTransient<IValidator<CreateEstablishmentRequest>, EstablishmentSpecifications>();
-builder.Services.AddTransient<IValidator<CreateCategoryRequest>, CategorySpecifications>();
+builder.Services.AddTransient<IValidator<CreateGameSpaceRequest>, CategorySpecifications>();
+builder.Services.AddTransient<IValidator<CreateWeekDayRequest>, WeekDaySpecifications>();
+builder.Services.AddTransient<IValidator<Guid>, GuidSpecifications>();
 
 var app = builder.Build();
 
 app.UseSwagger();
 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "EasyBooking.Api V1"));
 
-app.UseHttpsRedirection();
+app.UseCors(SpecificOrigins);
 
+app.UseHttpsRedirection();
 app.UseAuthentication();
 app.UseAuthorization();
 
